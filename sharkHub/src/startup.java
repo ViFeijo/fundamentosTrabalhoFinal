@@ -1,3 +1,6 @@
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 public class startup {
     private int id;
     private String nome;
@@ -11,5 +14,8 @@ public class startup {
         this.segmento = segmento;
         this.dataFundacao = dataFundacao;
         this.investidor = investidor;
+    }
+    public int getId() {
+        return id;
     }
 }
