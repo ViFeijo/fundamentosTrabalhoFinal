@@ -51,7 +51,8 @@ public class main {
                     System.out.println("Digite a nota dada ao pitch no tópico 'potencial de mercado': ");
                     double nota2 = scNota();
                     pitch = novoPitch(pitch.length, nome, nota1, nota2, startup[id-1], pitch);
-                    System.out.println("Startup adicionada com sucesso!");
+                    System.out.println("Pitch adicionado com sucesso!");
+                    System.out.println("Pitch "+ nome + " tem o ID "+ pitch[pitch.length-1].getId());
                 }
             }
         }

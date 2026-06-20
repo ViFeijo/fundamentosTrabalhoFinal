@@ -1,15 +1,13 @@
 public class investimento {
     private int id;
-    private String titulo;
-    private double notaInovacao;
-    private double notaMercado;
+    private double valor;
+    private double percentualParticipacao;
     private startup startup;
 
-    public investimento(int id, String titulo, double notaInovacao, double notaMercado, startup startup) {
+    public investimento(int id, double valor, double percentualParticipacao, startup startup) {
         this.id = id;
-        this.titulo = titulo;
-        this.notaInovacao = notaInovacao;
-        this.notaMercado = notaMercado;
+        this.valor = valor;
+        this.percentualParticipacao = percentualParticipacao;
         this.startup = startup;
     }
 }

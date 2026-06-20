@@ -18,4 +18,5 @@ public class pitch {
     public double media (){
         return (notaInovacao+notaMercado)/2;
     }
+    public int getId (){ return id; }
 }
