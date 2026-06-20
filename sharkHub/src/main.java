@@ -5,6 +5,7 @@ public class main {
         investidor[] inv = new investidor[0];
         startup[] startup = new startup[0];
         pitch[] pitch = new pitch[0];
+        valuation[] val = new valuation[0];
         int n = 1;
         while (n > 0) {
             System.out.println("Escolha uma das opções: " +
@@ -53,6 +54,15 @@ public class main {
                     pitch = novoPitch(pitch.length, nome, nota1, nota2, startup[id-1], pitch);
                     System.out.println("Pitch adicionado com sucesso!");
                     System.out.println("Pitch "+ nome + " tem o ID "+ pitch[pitch.length-1].getId());
+                }
+                case 4: {
+                    System.out.println("Digite o valor do investimento: ");
+                    double valor = scValor();
+                    System.out.println("Digite o percentual participação do investimento: ");
+                    double percentual = scPercentual();
+                    System.out.println("Digite o ID da startup investida: ");
+                    int id = scIdStartup(startup);
+
                 }
             }
         }
@@ -138,5 +148,25 @@ public class main {
             pitch2[i] = pitch[i];
         }
         return pitch2;
+    }
+    // Método scanner para valor de dinheiro
+    public static double scValor (){
+        Scanner in = new Scanner(System.in);
+        double valor = in.nextDouble();
+        while (valor<0){
+            System.out.println("Valor Inválido");
+            valor = in.nextDouble();
+        }
+        return valor;
+    }
+    // Método scanner para porcentagem
+    public static double scPercentual (){
+        Scanner in = new Scanner(System.in);
+        double percentual = in.nextDouble();
+        while (percentual <0 || percentual >100){
+            System.out.println("Valor Inválido");
+            percentual = in.nextDouble();
+        }
+        return percentual;
     }
 }
