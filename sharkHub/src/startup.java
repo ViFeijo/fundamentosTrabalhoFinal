@@ -18,4 +18,16 @@ public class startup {
     public int getId() {
         return id;
     }
+    public String getNome() {
+        return nome;
+    }
+    public String getSegmento() {
+        return segmento;
+    }
+    public String getDataFundacao() {
+        return dataFundacao;
+    }
+    public investidor getInvestidor() {
+        return investidor;
+    }
 }

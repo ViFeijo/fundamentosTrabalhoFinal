@@ -19,4 +19,5 @@ public class pitch {
         return (notaInovacao+notaMercado)/2;
     }
     public int getId (){ return id; }
+    public startup getStartup (){ return startup; }
 }

@@ -10,4 +10,8 @@ public class investimento {
         this.percentualParticipacao = percentualParticipacao;
         this.startup = startup;
     }
+    public int getId() {return id;}
+    public double getValor() {return valor;}
+    public double getPercentualParticipacao() {return percentualParticipacao;}
+    public startup getStartup() {return startup;}
 }
