@@ -30,4 +30,8 @@ public class startup {
     public investidor getInvestidor() {
         return investidor;
     }
+    public String toString(){
+        return "ID: " + id + "\nNome: " + nome + "\nSegmento: " + segmento +
+                "\nDataFundação: " + dataFundacao + "\nInvestidor: " + investidor.getNome();
+    }
 }

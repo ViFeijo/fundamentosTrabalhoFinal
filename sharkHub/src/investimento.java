@@ -14,4 +14,9 @@ public class investimento {
     public double getValor() {return valor;}
     public double getPercentualParticipacao() {return percentualParticipacao;}
     public startup getStartup() {return startup;}
+    public String toString(){
+        return " ID: " + id + "\nValor: " + valor + "\nParticipação: " + percentualParticipacao +
+                " Startup: " + startup.getNome();
+    }
 }
+

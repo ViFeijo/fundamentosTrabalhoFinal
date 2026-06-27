@@ -1,5 +1,15 @@
 import java.util.Scanner;
-
+/*
+    Descrição: SharkHub tem como objetivo proporcionar
+um banco de dados para startups e investidores,
+dando acesso fácil aos registros de investimentos.
+Além disso, o programa apresenta diferentes cálculos,
+como a valuation ou potencial de unicornização.
+    Nome 1: Angelo Berleze
+    Nome 2: Pedro Miguel
+    Nome 3: Vitor Feijo
+    Data: 08/06/2026
+ */
 public class main {
     public static void main(String[] args) {
         investidor[] inv = new investidor[0];
@@ -14,8 +24,13 @@ public class main {
                     "\n2) Cadastrar Startup" +
                     "\n3) Adicionar Pitch" +
                     "\n4) Adicionar Investimento" +
+                    "\n5) Cosultar Startup" +
+                    "\n6) Consultar Investidor" +
+                    "\n7) Consultar Investimentos" +
+                    "\n8) Calcular Valuation" +
                     "\n9) Exibir Ranking de Startups" +
                     "\n10) Exibir Índice de Unicornização" +
+                    "\n11) Expectativa de crescimento" +
                     "\n0) Sair");
             n = scSwitch();
             switch (n) {
@@ -84,6 +99,52 @@ public class main {
                     System.out.println("Investimento adicionado com sucesso!");
                     break;
                 }
+                case 5:{
+                    System.out.println("Digite o ID da startup desejada: ");
+                    int id = scIdStartup(startup);
+                    System.out.println(startup[id-1].toString());
+                    break;
+                }
+                case 6:{
+                    if(inv.length == 0) {
+                        System.out.println("Adicione um investidor.");
+                        break;
+                    } else{
+                        System.out.println("Digite o ID do investidor desejado: ");
+                        int id = scIdInv(inv);
+                        for (int i = 0; i < startup.length; i++) {
+                            if (startup[i].getInvestidor() == inv[id - 1]) {
+                                System.out.println(startup[i].toString());
+                            }
+                        }
+                        break;
+                    }
+                }
+                case 7: {
+                    if(startup.length == 0) {
+                        System.out.println("Adicione uma startup.");
+                        break;
+                    }
+                    System.out.println("Digite o ID da startup desejada: ");
+                    int id = scIdStartup(startup);
+                    for (int i = 0; i < investimento.length; i++) {
+                        if (investimento[i].getStartup() == startup[id - 1]) {
+                            System.out.println(investimento[i].toString());
+                        }
+                    }
+                    break;
+                }
+                case 8:{
+                    if(startup.length == 0) {
+                        System.out.println("Adicione uma startup.");
+                        break;
+                    } else{
+                        System.out.println("Digite o ID da startup a ser consultada: ");
+                        int id = scIdStartup(startup);
+                        System.out.println("R$"+ totalStartup(startup[id - 1], investimento));
+                        break;
+                    }
+                }
                 case 9: {
                     rankingStartup(startup, pitch, investimento);
                     break;
@@ -92,14 +153,35 @@ public class main {
                     indiceUnicornizacao(startup, inv, pitch, investimento);
                     break;
                 }
+                case 11: {
+                    if(startup.length == 0) {
+                        System.out.println("Adicione uma startup.");
+                        break;
+                    } else {
+                        System.out.println("Digite o ID da startup desejada: ");
+                        int id = scIdStartup(startup);
+                        System.out.println("Digite a porcentagem (sem %) de crescimento esperado por ano: ");
+                        int pct = scCrescimentoPct();
+                        System.out.println("Ano 1: R$" + crescimentoStartup(pct, totalStartup(startup[id-1], investimento), 1));
+                        System.out.println("Ano 2: R$" + crescimentoStartup(pct, totalStartup(startup[id-1], investimento), 2));
+                        System.out.println("Ano 3: R$" + crescimentoStartup(pct, totalStartup(startup[id-1], investimento), 3));
+                        System.out.println("Ano 4: R$" + crescimentoStartup(pct, totalStartup(startup[id-1], investimento), 4));
+                        System.out.println("Ano 5: R$" + crescimentoStartup(pct, totalStartup(startup[id-1], investimento), 5));
+                        break;
+                    }
+                }
+                default: {
+                    System.out.println("Digite um valor válido!");
+                }
             }
         }
+        System.out.println("Processo encerrado. Obrigado por usar SharkHub :)");
     }
     // Método de scanner para o switch principal
     public static int scSwitch(){
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
-        while (n>10 || n<0){
+        while (n>11 || n<0){
             System.out.println("Valor inválido");
             n = in.nextInt();
         }
@@ -133,6 +215,7 @@ public class main {
     public static int scIdInv (investidor[] inv){
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
+        if (inv.length == 0) return 0;
         while (n<=0 || n>inv.length){
             System.out.println("Valor inválido");
             n = in.nextInt();
@@ -149,10 +232,11 @@ public class main {
         return startup2;
     }
     // Método scanner para seleção de ID de startup
-    public static int scIdStartup (startup[] startup){
+    public static int scIdStartup (startup[] startup) {
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
-        while (n<=0 || n> startup.length){
+        if (startup.length == 0) return 0;
+        while (n <= 0 || n > startup.length) {
             System.out.println("Valor inválido");
             n = in.nextInt();
         }
@@ -211,7 +295,7 @@ public class main {
         double total = 0;
         for (int i = 0; i < investimento.length; i++) {
             if (investimento[i].getStartup().getId() == startup.getId()) {
-                total = total + investimento[i].getValor();
+                total = total + investimento[i].getValor()/(100/investimento[i].getPercentualParticipacao());
             }
         }
         return total;
@@ -316,4 +400,23 @@ public class main {
         }
         System.out.println("Investidor com maior valor investido: " + inv[maior].getNome() + " - " + maiorTotal);
     }
-}
+    //Método scanner para porcentagem de crescimento
+    public static int scCrescimentoPct (){
+        Scanner in = new Scanner (System.in);
+        int n = in.nextInt();
+        while (n<0) {
+            System.out.print("Digite um valor válido!");
+            n = in.nextInt();
+        }
+        return n;
+
+    }
+    //Método recursivo para crescimento da startup
+    public static double crescimentoStartup (int pct, double valor, int n){
+        if (n == 0){return valor;}
+        else {
+            return crescimentoStartup(pct, valor, n-1)+ crescimentoStartup(pct, valor, n-1)/(100/pct);
+            }
+        }
+    }
+
